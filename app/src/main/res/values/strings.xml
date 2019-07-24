@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Submission3</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_movie">Movie</string>
+    <string name="tab_tv_show">Tv Show</string>
+    <string name="movie_image">Movie Image</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="movie_desc">Movie Detail</string>
+    <string name="tvshow_title">Tv SHow Title</string>
+    <string name="tvshow_desc">Tv Show Description</string>
+    <string name="change_language_settings">Change Language</string>
+    <string name="movie_image_detail">Movie Image</string>
+    <string name="title_movie">Title</string>
+    <string name="overview_movie">Overview</string>
+    <string name="text_overview_movie">Text Overview</string>
+    <string name="original_language_movie">Original Language</string>
+    <string name="original_language_txt_movie">Ori Language TXT</string>
+    <string name="popularity_movie">Popularity</string>
+    <string name="popularity_text_movie">Popularity Text</string>
+    <string name="release_date_movie">Release Date</string>
+    <string name="release_date_text_movie">Release Date Text</string>
+
+    <string name="tvshow_image_detail">Tv Show Image</string>
+    <string name="title_tvshow">Title Tvshow</string>
+    <string name="overview_tvshow">Overview</string>
+    <string name="overview_txt_tvshow">Overview Txt</string>
+    <string name="original_language_tvshow">Original Language</string>
+    <string name="original_language_txt_tvshow">Original Language Txt</string>
+    <string name="popularity_tvshow">Popularity</string>
+    <string name="popularity_txt_tvshow">Popularity Txt</string>
+    <string name="first_air_date_tvshow">First Air Date</string>
+    <string name="first_air_date_txt_tvshow">First Air Date Txt</string>
+</resources>

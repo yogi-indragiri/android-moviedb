@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Submisi ke 3</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_movie">Film</string>
+    <string name="tab_tv_show">Acara Tv</string>
+    <string name="movie_image">Gambar Film</string>
+    <string name="movie_name">Nama Film</string>
+    <string name="movie_desc">Deskripsi Film</string>
+    <string name="tvshow_title">Judul Acara Tv</string>
+    <string name="tvshow_desc">Deskripsi Acara Tv</string>
+    <string name="change_language_settings">Ubah Bahasa</string>
+    <string name="movie_image_detail">Poster Film</string>
+    <string name="title_movie">Judul</string>
+    <string name="overview_movie">Deskripsi</string>
+    <string name="text_overview_movie">Teks Deskripsi</string>
+    <string name="original_language_movie">Bahasa Asli</string>
+    <string name="original_language_txt_movie">Ori Language TXT</string>
+    <string name="popularity_movie">Popularitas</string>
+    <string name="popularity_text_movie">Popularity Text</string>
+    <string name="release_date_movie">Tanggal Rilis</string>
+    <string name="release_date_text_movie">Release Date Text</string>
+
+    <string name="tvshow_image_detail">Poster Tv Show</string>
+    <string name="title_tvshow">Judul Acara Tv</string>
+    <string name="overview_tvshow">Deskripsi</string>
+    <string name="overview_txt_tvshow">Deskripsi Txt</string>
+    <string name="original_language_tvshow">Bahasa Asli</string>
+    <string name="original_language_txt_tvshow">Original Language Txt</string>
+    <string name="popularity_tvshow">Popularitas</string>
+    <string name="popularity_txt_tvshow">Popularity Txt</string>
+    <string name="first_air_date_tvshow">Tanggal Awal Mengudara</string>
+    <string name="first_air_date_txt_tvshow">First Air Date Txt</string>
+</resources>
