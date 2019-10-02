@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Submission3</string>
+    <string name="app_name">Final Submission</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_movie">Movie</string>
     <string name="tab_tv_show">Tv Show</string>
@@ -30,4 +30,15 @@
     <string name="popularity_txt_tvshow">Popularity Txt</string>
     <string name="first_air_date_tvshow">First Air Date</string>
     <string name="first_air_date_txt_tvshow">First Air Date Txt</string>
+    <string name="text_favorite">Favorite</string>
+    <string name="title_movie_tab">Movie</string>
+    <string name="title_tvshow_tab">Tv Show</string>
+    <string name="title_favorite_tab">Favorite</string>
+    <string name="title_frame_main">Main Container</string>
+    <string name="preference_file_key">movie_preference</string>
+    <string name="added_favorite">Added to Favorite</string>
+    <string name="remove_favorite">Removed from Favorite</string>
+    <string name="search_hint">Search</string>
+    <string name="action_search">Search</string>
+    <string name="change_reminder_settings">Setting Reminder</string>
 </resources>

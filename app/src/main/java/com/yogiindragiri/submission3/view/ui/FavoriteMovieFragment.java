@@ -1,6 +1,5 @@
 package com.yogiindragiri.submission3.view.ui;
 
-
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -22,26 +21,27 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.yogiindragiri.submission3.R;
+import com.yogiindragiri.submission3.service.database.FavoriteMovieEntry;
 import com.yogiindragiri.submission3.service.model.Movie;
 import com.yogiindragiri.submission3.view.adapter.MovieListAdapter;
 import com.yogiindragiri.submission3.viewmodel.MovieViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MovieFragment extends Fragment {
+public class FavoriteMovieFragment extends Fragment {
     private RecyclerView recyclerView;
     private MovieListAdapter adapter;
     private ProgressBar progressBar;
     private MovieViewModel viewModel;
 
-    public MovieFragment() {
+    public FavoriteMovieFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_movie, container, false);
+        return inflater.inflate(R.layout.fragment_favorite_movie, container, false);
     }
 
     @Override
@@ -56,27 +56,7 @@ public class MovieFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progress_bar_movie);
 
-
-        viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
-
-        viewModel.getMoviesFilter("spiderman").observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(@Nullable List<Movie> results) {
-                adapter = new MovieListAdapter(results);
-
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
-                adapter.setOnItemClickCallback(new MovieListAdapter.OnItemClickCallback() {
-                    @Override
-                    public void onItemClicked(Movie data) {
-                        showSelectedMovie(data);
-                    }
-                });
-                showLoading(false);
-            }
-        });
-
+        getAllFavorite();
     }
 
     @Override
@@ -87,38 +67,10 @@ public class MovieFragment extends Fragment {
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(final String query) {
-
-                showLoading(true);
-
-                viewModel = ViewModelProviders.of(getActivity()).get(MovieViewModel.class);
-
-                viewModel.getMoviesFilter(query).observe(getActivity(), new Observer<List<Movie>>() {
-                    @Override
-                    public void onChanged(@Nullable List<Movie> movies) {
-                        Toast.makeText(getContext(), query, Toast.LENGTH_SHORT).show();
-
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-                        adapter = new MovieListAdapter(movies);
-                        adapter.notifyDataSetChanged();
-
-                        recyclerView.setAdapter(adapter);
-
-                        adapter.setOnItemClickCallback(new MovieListAdapter.OnItemClickCallback() {
-                            @Override
-                            public void onItemClicked(Movie data) {
-                                showSelectedMovie(data);
-                            }
-                        });
-                        showLoading(false);
-                    }
-                });
-
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getContext(), query, Toast.LENGTH_SHORT).show();
                 return true;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
@@ -139,7 +91,49 @@ public class MovieFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showSelectedMovie(Movie movie) {
+    private void getAllFavorite(){
+
+        viewModel = ViewModelProviders.of(this).get(MovieViewModel.class);
+
+        viewModel.getFavorite().observe(this, new Observer<List<FavoriteMovieEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<FavoriteMovieEntry> movieEntries) {
+                List<Movie> movies = new ArrayList<>();
+                for (FavoriteMovieEntry entry : movieEntries){
+                    Movie movie = new Movie();
+
+                    movie.setId(entry.getMovieid());
+                    movie.setReleaseDate(entry.getReleaseDate());
+                    movie.setOverview(entry.getOverview());
+                    movie.setAdult(entry.getAdult());
+                    movie.setBackdropPath(entry.getBackdropPath());
+                    movie.setOriginalTitle(entry.getOriginalTitle());
+                    movie.setOriginalLanguage(entry.getOriginalLanguage());
+                    movie.setPosterPath(entry.getPosterPath());
+                    movie.setPopularity(entry.getPopularity());
+                    movie.setTitle(entry.getTitle());
+                    movie.setVoteAverage(entry.getVoteAverage());
+                    movie.setVoteCount(entry.getVoteCount());
+                    movie.setVideo(entry.getVideo());
+
+                    movies.add(movie);
+                }
+
+                adapter = new MovieListAdapter(movies);
+                recyclerView.setAdapter(adapter);
+
+                adapter.setOnItemClickCallback(new MovieListAdapter.OnItemClickCallback() {
+                    @Override
+                    public void onItemClicked(Movie data) {
+                        showSelectedMovie(data);
+                    }
+                });
+                showLoading(false);
+            }
+        });
+    }
+
+    private void showSelectedMovie(Movie movie){
         Toast.makeText(getContext(), movie.getTitle(), Toast.LENGTH_SHORT).show();
         Intent moveToDetail = new Intent(getContext(), MovieDetailActivity.class);
         moveToDetail.putExtra(MovieDetailActivity.MOVIE_EXTRA, movie);
@@ -153,5 +147,4 @@ public class MovieFragment extends Fragment {
             progressBar.setVisibility(View.GONE);
         }
     }
-
 }

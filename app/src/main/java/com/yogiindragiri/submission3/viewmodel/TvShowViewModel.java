@@ -1,23 +1,28 @@
 package com.yogiindragiri.submission3.viewmodel;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-
+import android.util.Log;
 import com.yogiindragiri.submission3.service.api.Api;
+import com.yogiindragiri.submission3.service.database.FavoriteTvShowDatabase;
+import com.yogiindragiri.submission3.service.database.FavoriteTvShowEntry;
 import com.yogiindragiri.submission3.service.model.ResultTv;
 import com.yogiindragiri.submission3.service.model.TvShow;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import static android.support.constraint.Constraints.TAG;
 
-public class TvShowViewModel extends ViewModel {
+public class TvShowViewModel extends AndroidViewModel {
+
     private MutableLiveData<List<TvShow>> tvshowList;
+
+    private LiveData<List<FavoriteTvShowEntry>> favorite;
 
     public LiveData<List<TvShow>> getTvhow() {
         if (tvshowList == null) {
@@ -46,8 +51,19 @@ public class TvShowViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResultTv> call, Throwable t) {
-
+                Log.d("Error", t.getMessage());
             }
         });
+    }
+
+    public TvShowViewModel(Application application) {
+        super(application);
+        FavoriteTvShowDatabase database = FavoriteTvShowDatabase.getInstance(this.getApplication());
+        Log.d(TAG, "Actively retrieving the tasks from the DataBase");
+        favorite = database.favoriteTvShowDao().loadAllFavorite();
+    }
+
+    public LiveData<List<FavoriteTvShowEntry>> getFavorite() {
+        return favorite;
     }
 }

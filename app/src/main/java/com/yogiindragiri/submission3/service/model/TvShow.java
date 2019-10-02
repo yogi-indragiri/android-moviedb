@@ -13,9 +13,6 @@ public class TvShow implements Parcelable {
     @SerializedName("original_name")
     @Expose
     private String originalName;
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Integer> genreIds = null;
     @SerializedName("name")
     @Expose
     private String name;
@@ -56,14 +53,6 @@ public class TvShow implements Parcelable {
 
     public void setOriginalName(String originalName) {
         this.originalName = originalName;
-    }
-
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
     }
 
     public String getName() {
@@ -162,7 +151,6 @@ public class TvShow implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.originalName);
-        dest.writeList(this.genreIds);
         dest.writeString(this.name);
         dest.writeValue(this.popularity);
         dest.writeStringList(this.originCountry);
@@ -181,8 +169,6 @@ public class TvShow implements Parcelable {
 
     protected TvShow(Parcel in) {
         this.originalName = in.readString();
-        this.genreIds = new ArrayList<Integer>();
-        in.readList(this.genreIds, Integer.class.getClassLoader());
         this.name = in.readString();
         this.popularity = (Float) in.readValue(Float.class.getClassLoader());
         this.originCountry = in.createStringArrayList();

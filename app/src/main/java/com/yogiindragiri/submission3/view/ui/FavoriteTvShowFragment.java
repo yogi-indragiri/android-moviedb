@@ -22,28 +22,32 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.yogiindragiri.submission3.R;
+import com.yogiindragiri.submission3.service.database.FavoriteMovieEntry;
+import com.yogiindragiri.submission3.service.database.FavoriteTvShowEntry;
 import com.yogiindragiri.submission3.service.model.Movie;
-import com.yogiindragiri.submission3.service.model.ResultTv;
 import com.yogiindragiri.submission3.service.model.TvShow;
 import com.yogiindragiri.submission3.view.adapter.MovieListAdapter;
 import com.yogiindragiri.submission3.view.adapter.TvShowListAdapter;
-import com.yogiindragiri.submission3.viewmodel.MovieViewModel;
 import com.yogiindragiri.submission3.viewmodel.TvShowViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TvShowFragment extends Fragment {
+public class FavoriteTvShowFragment extends Fragment {
     private RecyclerView recyclerView;
     private TvShowListAdapter adapter;
     private ProgressBar progressBar;
 
-    public TvShowFragment() {
+
+    public FavoriteTvShowFragment() {
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tv_show, container, false);
+
+        return inflater.inflate(R.layout.fragment_favorite_tv_show, container, false);
     }
 
     @Override
@@ -58,24 +62,7 @@ public class TvShowFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progress_bar_tvshow);
 
-        TvShowViewModel model = ViewModelProviders.of(this).get(TvShowViewModel.class);
-
-        model.getTvhow().observe(this, new Observer<List<TvShow>>() {
-            @Override
-            public void onChanged(@Nullable List<TvShow> results) {
-                adapter = new TvShowListAdapter(results);
-
-                recyclerView.setAdapter(adapter);
-
-                adapter.setOnItemClickCallback(new TvShowListAdapter.OnItemClickCallback() {
-                    @Override
-                    public void onItemClicked(TvShow data) {
-                        showSelectedTvShow(data);
-                    }
-                });
-                showLoading(false);
-            }
-        });
+        getAllFavorite();
 
     }
 
@@ -111,7 +98,47 @@ public class TvShowFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void showSelectedTvShow(TvShow tvShow){
+    private void getAllFavorite() {
+
+        TvShowViewModel viewModel = ViewModelProviders.of(this).get(TvShowViewModel.class);
+        viewModel.getFavorite().observe(this, new Observer<List<FavoriteTvShowEntry>>() {
+            @Override
+            public void onChanged(@Nullable List<FavoriteTvShowEntry> tvshowEntries) {
+                List<TvShow> tvShows = new ArrayList<>();
+                for (FavoriteTvShowEntry entry : tvshowEntries) {
+                    TvShow tvShow = new TvShow();
+
+                    tvShow.setId(entry.getTvshowid());
+                    tvShow.setName(entry.getName());
+                    tvShow.setBackdropPath(entry.getBackdropPath());
+                    tvShow.setFirstAirDate(entry.getFirstAirDate());
+                    tvShow.setOriginalLanguage(entry.getOriginalLanguage());
+                    tvShow.setOverview(entry.getOverview());
+                    tvShow.setPopularity(entry.getPopularity());
+                    tvShow.setPosterPath(entry.getPosterPath());
+                    tvShow.setVoteAverage(entry.getVoteAverage());
+                    tvShow.setVoteCount(entry.getVoteCount());
+                    tvShow.setOriginalName(entry.getOriginalName());
+
+                    tvShows.add(tvShow);
+                }
+
+                adapter = new TvShowListAdapter(tvShows);
+                recyclerView.setAdapter(adapter);
+
+                adapter.setOnItemClickCallback(new TvShowListAdapter.OnItemClickCallback() {
+                    @Override
+                    public void onItemClicked(TvShow data) {
+                        showSelectedTvShow(data);
+                    }
+                });
+
+                showLoading(false);
+            }
+        });
+    }
+
+    private void showSelectedTvShow(TvShow tvShow) {
         Toast.makeText(getContext(), tvShow.getName(), Toast.LENGTH_SHORT).show();
         Intent moveToDetail = new Intent(getContext(), TvShowDetailActivity.class);
         moveToDetail.putExtra(TvShowDetailActivity.TVSHOW_EXTRA, tvShow);

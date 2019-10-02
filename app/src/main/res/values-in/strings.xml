@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Submisi ke 3</string>
+    <string name="app_name">Submisi Final</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_movie">Film</string>
     <string name="tab_tv_show">Acara Tv</string>
@@ -31,4 +31,13 @@
     <string name="popularity_txt_tvshow">Popularity Txt</string>
     <string name="first_air_date_tvshow">Tanggal Awal Mengudara</string>
     <string name="first_air_date_txt_tvshow">First Air Date Txt</string>
+    <string name="text_favorite">Favorit</string>
+    <string name="title_favorite_tab">Favorit</string>
+    <string name="title_frame_main">Main Container</string>
+    <string name="title_movie_tab">Film</string>
+    <string name="title_tvshow_tab">Acara Tv</string>
+    <string name="search_hint">Cari</string>
+    <string name="added_favorite">Ditambahkan ke Favorit</string>
+    <string name="remove_favorite">Dihapus dari Favorite</string>
+    <string name="change_reminder_settings">Pengaturan Pengingat</string>
 </resources>
